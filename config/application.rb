@@ -57,7 +57,7 @@ module Rottenpotatoes
     # config.active_record.whitelist_attributes = true
 
     # Fix for Heroku deploy
-    config.assets.initialize_on_precompile = false
+    # config.assets.initialize_on_precompile = false
 
     config.active_support.cache_format_version = 7.1
   end
