@@ -27,6 +27,7 @@ end
 
 group :production do
   gem 'pg', '~> 1.5'
+  gem 'puma'
 end
 
 # Required for timezone support on Linux (Gradescope)
