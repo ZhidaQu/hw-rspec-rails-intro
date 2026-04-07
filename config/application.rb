@@ -1,8 +1,14 @@
 require File.expand_path('boot', __dir__)
 
 # Only require the frameworks we need (skip Active Storage, Action Mailbox, etc.)
-require "rails/all"
+require "action_controller/railtie"
+require "action_view/railtie"
+require "action_mailer/railtie"
+require "active_record/railtie"
+require "active_job/railtie"
+require "action_cable/engine"
 require "sprockets/railtie"
+require "rails/test_unit/railtie"
 
 Bundler.require(:default, Rails.env)
 
@@ -35,7 +41,7 @@ module Rottenpotatoes
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    #config.web_console.development_only = false
+    # config.web_console.development_only = false
     # Enable the asset pipeline
     # config.assets.enabled = true
 
