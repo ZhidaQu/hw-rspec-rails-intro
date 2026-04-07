@@ -46,18 +46,17 @@ class MoviesController < ApplicationController
   end
 
   def search_tmdb
-    if params[:title].blank?
-      flash[:danger] = 'Please fill in all required fields!'
-      redirect_to search_tmdb_path
-    else
+    if params[:title].present?
       @movies = Movie.find_in_tmdb({
         title: params[:title],
         release_year: params[:release_year],
         language: params[:language]
       })
       if @movies.empty?
-        flash[:warning] = 'No movies found with given parameters!'
+        flash.now[:warning] = 'No movies found with given parameters!'
       end
+    elsif params.key?(:title) 
+      flash.now[:danger] = 'Please fill in all required fields!'
     end
   end
 
