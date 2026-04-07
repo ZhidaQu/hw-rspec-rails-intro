@@ -13,6 +13,9 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -91,4 +94,13 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
+RSpec.configure do |config|
+  json_return = {"page":1,"results":[{"adult":false,"backdrop_path":"/kqMV9VUrGv9BbmRTOzXKyIraeOG.jpg","genre_ids":[],"id":716088,"original_language":"en","original_title":"Sydney 2000 Olympics Opening Ceremony","overview":"Coverage of the glorious Olympic Opening Ceremony","popularity":3.733,"poster_path":"/nE9GGznpsYPuRIg3kCBgsfCwC2j.jpg","release_date":"2000-09-15","title":"Sydney 2000 Olympics Opening Ceremony","video":false,"vote_average":7.3,"vote_count":3}],"total_pages":1,"total_results":1}
+
+  config.before(:each) do
+    stub_request(:get, /api.themoviedb.org/).
+      with(headers: {'Accept'=>'*/*'}).
+      to_return(status: 200, body: JSON.generate(json_return), headers: {})
+  end
 end
